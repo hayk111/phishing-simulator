@@ -20,9 +20,12 @@ const PhishingSimulation: React.FC<PhishingSimulationProps> = ({ token }) => {
   useEffect(() => {
     const fetchAttempts = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/attempts', {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}/attempts`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         setAttempts(response.data);
       } catch (error) {
         console.error('Failed to fetch attempts', error);
@@ -36,7 +39,7 @@ const PhishingSimulation: React.FC<PhishingSimulationProps> = ({ token }) => {
     e.preventDefault();
     try {
       await axios.post(
-        'http://localhost:3001/attempts/send',
+        `${import.meta.env.VITE_API_URL}/attempts/send`,
         { email, message },
         {
           headers: { Authorization: `Bearer ${token}` },

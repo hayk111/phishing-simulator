@@ -25,7 +25,10 @@ export class AttemptsService {
 
   async sendPhishingEmail(email: string, message: string): Promise<any> {
     const response = await this.httpService
-      .post('http://localhost:3000/phishing/send', { email, message })
+      .post(`${process.env.SIMULATION_SERVICE_URL}/phishing/send`, {
+        email,
+        message,
+      })
       .toPromise();
     return response.data;
   }

@@ -14,10 +14,13 @@ const Login: React.FC<LoginProps> = ({ setToken }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3001/auth/login', {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/auth/login`,
+        {
+          email,
+          password,
+        }
+      );
       setToken(response.data.access_token);
       navigate('/phishing-simulation');
     } catch (error) {
