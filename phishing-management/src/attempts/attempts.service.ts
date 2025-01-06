@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import {
@@ -11,6 +12,7 @@ export class AttemptsService {
   constructor(
     @InjectModel(PhishingAttempt.name)
     private phishingAttemptModel: Model<PhishingAttemptDocument>,
+    private httpService: HttpService,
   ) {}
 
   async getAllPhishingAttempts(): Promise<PhishingAttempt[]> {
@@ -22,7 +24,9 @@ export class AttemptsService {
   }
 
   async sendPhishingEmail(email: string, message: string): Promise<any> {
-    // const phishingAttempt = new this.phishingAttemptModel({ email, message });
-    // return phishingAttempt.save();
+    const response = await this.httpService
+      .post('http://localhost:3000/phishing/send', { email, message })
+      .toPromise();
+    return response.data;
   }
 }
