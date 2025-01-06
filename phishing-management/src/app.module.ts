@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { PhishingManagementModule } from './phishing-management/phishing-management.module';
+import { ConfigModule } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
+import { AttemptsModule } from './attempts/attempts.module';
 
 @Module({
   imports: [
@@ -9,7 +10,8 @@ import { PhishingManagementModule } from './phishing-management/phishing-managem
       isGlobal: true,
     }),
     MongooseModule.forRoot(process.env.DATABASE_URL),
-    PhishingManagementModule,
+    AuthModule,
+    AttemptsModule,
   ],
 })
 export class AppModule {}
