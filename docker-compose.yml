@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo-data:/data/db
+
+  # phishing-simulation:
+  #   build: ./phishing-simulation
+  #   ports:
+  #     - '3000:3000'
+  #   environment:
+  #     - DATABASE_URL=mongodb://mongo:27017/phishing
+  #     - EMAIL_USER=your-email@gmail.com
+  #     - EMAIL_PASS=your-email-password
+  #     - BASE_URL=http://localhost:3000
+  #   depends_on:
+  #     - mongo
+
+  # phishing-management:
+  #   build: ./phishing-management
+  #   ports:
+  #     - '3001:3000'
+  #   environment:
+  #     - DATABASE_URL=mongodb://mongo:27017/phishing
+  #   depends_on:
+  #     - mongo
+
+  # frontend:
+  #   build: ./frontend
+  #   ports:
+  #     - '3002:3000'
+  #   depends_on:
+  #     - phishing-simulation
+  #     - phishing-management
+
+volumes:
+  mongo-data:
