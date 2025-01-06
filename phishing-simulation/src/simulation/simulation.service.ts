@@ -27,8 +27,8 @@ export class SimulationService {
 
     const msg = {
       to: createPhishingAttemptDto.email,
-      from: 'hayk.atoyan333@gmail.com',
-      replyTo: 'hayk.atoyan111@gmail.com',
+      from: process.env.SENDGRID_SENDER_EMAIL,
+      replyTo: process.env.SENDGRID_REPLY_TO_EMAIL,
       subject: 'Phishing Test',
       text: `${createPhishingAttemptDto.message || 'Click the link to complete the phishing test:'} ${process.env.BASE_URL}/phishing/click/${createdAttempt._id}`,
     };
